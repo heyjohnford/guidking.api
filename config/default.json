@@ -1,0 +1,6 @@
+{
+  "appName": "guidking.api",
+  "env": {
+    "port": 3000
+  }
+}
