@@ -8,9 +8,7 @@ async function generateUuid(amount = 1) {
     arr.push(uuid())
   }
 
-  return new Promise((resolve, reject) => {
-    resolve(arr)
-  })
+  return Promise.resolve(arr)
 }
 
 function handleErrors(error, req, res, next) {
@@ -19,6 +17,8 @@ function handleErrors(error, req, res, next) {
     type: error.name,
     message: error.message
   })
+
+  next()
 }
 
 function requestMiddleware(req, res, next) {
@@ -31,7 +31,7 @@ function requestMiddleware(req, res, next) {
 
 function responseTime(startAt) {
   const diff = process.hrtime(startAt)
-  const time = diff[0] * 1e3 + diff[1] * 1e-6
+  const time = diff[0] * 1e3 + diff[1] * 1e-6 // eslint-disable-line
 
   return time
 }

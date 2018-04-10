@@ -8,9 +8,11 @@
         "prefer-arrow-callback": "off",
         "require-jsdoc": "off",
         "no-unused-expressions": "off",
-        "semi": "error",
+        "semi": ["error", "never"],
+        "comma-dangle": ["error", "never"],
+        "object-curly-newline": "off",
         "global-require": "off",
         "import/no-dynamic-require": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "warn"
       }
 }

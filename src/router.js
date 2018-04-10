@@ -1,10 +1,15 @@
 const { Router } = require('express')
-const { generateUuid, responseTime, errors, handleErrors } = require('../helpers')
+const {
+  generateUuid,
+  responseTime,
+  errors,
+  handleErrors
+} = require('../helpers')
 const logger = require('../lib/logger')
-const Repository = require('./repository')
+const { createGuid } = require('./repository')
 
 const router = Router()
-const repository = new Repository()
+// const repository = new Repository()
 
 function checksAndBalances(amount) {
   if (amount < 0) {
@@ -15,7 +20,7 @@ function checksAndBalances(amount) {
     throw new errors.BadRequest('amount must be equal to or less than 1000')
   }
 
-  if (isNaN(amount)) {
+  if (Number.isNaN(amount)) {
     throw new errors.BadRequest('amount must be a valid number')
   }
 }
@@ -29,7 +34,7 @@ async function getGuids(req, res, next) {
     logger.info(`${amount} guid${amount !== 1 ? 's' : ''} requested`)
 
     res.json(await generateUuid(amount))
-    repository.createGuid(req, amount, responseTime(req.startAt))
+    createGuid(req, amount, responseTime(req.startAt))
   } catch (err) {
     logger.error(err.toString())
     handleErrors(err, req, res, next)

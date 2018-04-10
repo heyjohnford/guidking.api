@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "nyc --reporter=text mocha --recursive test/",
+    "lint": "eslint src lib helpers test",
+    "security": "nsp check"
   },
   "keywords": [
     "guid",
@@ -15,9 +18,13 @@
   "author": "John Amiah Ford",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.10.0",
-    "nodemon": "^1.17.3"
+    "eslint-plugin-import": "2.7.0",
+    "mocha": "^5.0.5",
+    "nodemon": "^1.17.3",
+    "nsp": "^3.2.1",
+    "nyc": "^11.6.0"
   },
   "dependencies": {
     "chalk": "^2.3.2",

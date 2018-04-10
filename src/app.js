@@ -10,7 +10,7 @@ app.use(requestMiddleware)
 app.use(logger.logToStdout)
 app.use(logger.logToFile)
 
-app.disable('x-powered-by');
+app.disable('x-powered-by')
 
 app.use(router)
 

@@ -4,3 +4,4 @@ node_modules
 .npmrc
 *.log
 config/local.json
+.nyc*
