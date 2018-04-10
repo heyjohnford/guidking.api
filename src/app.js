@@ -1,19 +1,21 @@
 const express = require('express')
-const { config, Logger } = require('../lib')
-const { handleAppErrors } = require('../helpers')
+const { config, logger } = require('../lib')
+const { requestMiddleware, handleErrors } = require('../helpers')
 const router = require('./router')
 
 const app = express()
-const logger = new Logger()
 const PORT = config.get('env:port')
 
-app.use(logger.setup())
-app.use(logger.setup('file'))
+app.use(requestMiddleware)
+app.use(logger.logToStdout)
+app.use(logger.logToFile)
 
-app.use('/', router)
+app.disable('x-powered-by');
 
-app.use(handleAppErrors)
+app.use(router)
+
+app.use(handleErrors)
 
 app.listen(PORT, () => {
-  logger.log(`✨ ${config.get('appName')} listening on port ${PORT}`)
+  logger.info(`✨ ${config.get('appName')} listening on port ${PORT}`)
 })
