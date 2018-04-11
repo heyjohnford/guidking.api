@@ -2,5 +2,11 @@
   "appName": "guidking.api",
   "env": {
     "port": 3000
+  },
+  "database": {
+    "host": "mongodb://localhost:27017",
+    "user": "",
+    "password": "",
+    "dbName": "test"
   }
 }
