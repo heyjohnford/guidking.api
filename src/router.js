@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const {
   generateUuid,
+  retry,
   responseTime,
   errors,
   handleErrors
@@ -9,7 +10,6 @@ const logger = require('../lib/logger')
 const { createGuid } = require('./repository')
 
 const router = Router()
-// const repository = new Repository()
 
 function checksAndBalances(amount) {
   if (amount < 0) {
@@ -33,7 +33,9 @@ async function getGuids(req, res, next) {
     checksAndBalances(amount)
     logger.info(`${amount} guid${amount !== 1 ? 's' : ''} requested`)
 
-    res.json(await generateUuid(amount))
+    const result = await retry(() => generateUuid(amount), 2)
+
+    res.json(result)
     createGuid(req, amount, responseTime(req.startAt))
   } catch (err) {
     logger.error(err.toString())

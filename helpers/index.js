@@ -36,9 +36,31 @@ function responseTime(startAt) {
   return time
 }
 
+async function delay(milliseconds = 400) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
+async function retry(fn, maxRetries, retryDelay) {
+  const recursor = async (retryCount) => {
+    try {
+      return await fn()
+    } catch (err) {
+      if (retryCount === maxRetries) {
+        throw new errors.RequestTimeout(`request retries (${retryCount}) exceed maximum allowed`)
+      }
+
+      await delay(retryDelay)
+      return recursor(retryCount + 1)
+    }
+  }
+
+  return recursor(0)
+}
+
 module.exports = {
   generateUuid,
   requestMiddleware,
+  retry,
   responseTime,
   errors,
   handleErrors
