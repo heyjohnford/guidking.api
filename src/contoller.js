@@ -23,7 +23,7 @@ function isAmountValid(amount) {
 }
 
 async function getGuids(req, res, next) {
-  const { query } = req
+  const { query, startAt } = req
   const amount = Math.floor(Number(query.amount))
 
   try {
@@ -33,7 +33,7 @@ async function getGuids(req, res, next) {
     const result = await retry(() => generateUuid(amount), 2)
 
     res.json(result)
-    createGuid(req, amount, responseTime(req.startAt))
+    createGuid(req, amount, responseTime(startAt))
   } catch (err) {
     logger.error(err.toString())
     handleErrors(err, req, res, next)
