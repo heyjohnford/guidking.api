@@ -11,7 +11,7 @@ const { createGuid } = require('./repository')
 
 const router = Router()
 
-function checksAndBalances(amount) {
+function isAmountValid(amount) {
   if (amount < 0) {
     throw new errors.BadRequest('amount must not be a negative number')
   }
@@ -30,7 +30,7 @@ async function getGuids(req, res, next) {
   const amount = Math.floor(Number(query.amount))
 
   try {
-    checksAndBalances(amount)
+    isAmountValid(amount)
     logger.info(`${amount} guid${amount !== 1 ? 's' : ''} requested`)
 
     const result = await retry(() => generateUuid(amount), 2)
