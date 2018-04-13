@@ -6,7 +6,7 @@ const {
   handleErrors
 } = require('../helpers')
 const logger = require('../lib/logger')
-const { createGuid } = require('./repository')
+const repository = require('./repository')
 
 function isAmountValid(amount) {
   if (amount < 0) {
@@ -22,8 +22,22 @@ function isAmountValid(amount) {
   }
 }
 
+async function guidToInsert(req, amount) {
+  const { requestId, ip, url, startAt, headers } = req
+  const guid = {
+    requestId,
+    ip,
+    url,
+    responseTime: responseTime(startAt),
+    numberOfGuids: amount,
+    userAgent: headers['user-agent']
+  }
+
+  return repository.insertOne(guid)
+}
+
 async function getGuids(req, res, next) {
-  const { query, startAt } = req
+  const { query } = req
   const amount = Math.floor(Number(query.amount))
 
   try {
@@ -33,7 +47,12 @@ async function getGuids(req, res, next) {
     const result = await retry(() => generateUuid(amount), 2)
 
     res.json(result)
-    createGuid(req, amount, responseTime(startAt))
+
+    try {
+      await guidToInsert(req, amount)
+    } catch (err) {
+      logger.error(err.toString())
+    }
   } catch (err) {
     logger.error(err.toString())
     handleErrors(err, req, res, next)
