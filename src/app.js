@@ -17,7 +17,7 @@ app.use(router)
 app.use(handleErrors)
 
 app.listen(PORT, async () => {
-  logger.info(`✨ ${config.get('appName')} listening on port ${PORT}`)
+  logger.info(`🏁 ${config.get('appName')} listening on port ${PORT}`)
 
   try {
     await connection()
