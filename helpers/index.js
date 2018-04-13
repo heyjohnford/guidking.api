@@ -31,7 +31,7 @@ function requestMiddleware(req, res, next) {
 
 function responseTime(startAt) {
   const diff = process.hrtime(startAt)
-  const time = diff[0] * 1e3 + diff[1] * 1e-6 // eslint-disable-line
+  const time = (diff[0] * 1e3) + (diff[1] * 1e-6)
 
   return time
 }
