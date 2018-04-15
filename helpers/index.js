@@ -22,8 +22,7 @@ function handleErrors(error, req, res, next) {
 }
 
 function requestMiddleware(req, res, next) {
-  const startAt = process.hrtime()
-  req.startAt = startAt
+  req.startAt = process.hrtime()
   req.requestId = uuid()
 
   next()
