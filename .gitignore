@@ -5,3 +5,4 @@ node_modules
 *.log
 config/local.json
 .nyc*
+yarn-error.log
