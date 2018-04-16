@@ -1,6 +1,4 @@
-const { config, connection, logger } = require('../lib')
-
-let cachedDb
+const { config, client: dbClient, logger } = require('../lib')
 
 function removeRequestIdFromBody(payload) {
   const { requestId, ...payloadOmitRequestId } = payload
@@ -24,14 +22,15 @@ async function setupCollections(db, collectionName) {
 class Repository {
   constructor() {
     this.dbName = config.get('database:name')
+    this.cachedDb = null
   }
 
   async getDb() {
-    if (cachedDb) {
-      return cachedDb
+    if (this.cachedDb) {
+      return this.cachedDb
     }
 
-    const client = await connection()
+    const client = dbClient.getClient
     const db = client.db(this.dbName)
 
     logger.info(`using ${this.dbName} for database context`)
@@ -43,7 +42,7 @@ class Repository {
       logger.error(err.toString())
     }
 
-    cachedDb = db
+    this.cachedDb = db
 
     return db
   }
