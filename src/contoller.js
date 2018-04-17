@@ -22,9 +22,9 @@ function isAmountValid(amount) {
   }
 }
 
-async function guidToInsert(req, amount) {
+function guidModel(req, amount) {
   const { requestId, ip, url, startAt, headers } = req
-  const guid = {
+  return {
     requestId,
     ip,
     url,
@@ -32,8 +32,6 @@ async function guidToInsert(req, amount) {
     numberOfGuids: amount,
     userAgent: headers['user-agent']
   }
-
-  return repository.insertOne(guid)
 }
 
 async function getGuids(req, res, next) {
@@ -44,12 +42,13 @@ async function getGuids(req, res, next) {
     isAmountValid(amount)
     logger.info(`${amount} guid${amount !== 1 ? 's' : ''} requested`)
 
-    const result = await retry(() => generateUuid(amount), 2)
+    const response = await retry(() => generateUuid(amount), 2)
 
-    res.json(result)
+    res.json(response)
 
     try {
-      await guidToInsert(req, amount)
+      const guid = guidModel(req, amount)
+      await repository.insertOne(guid)
     } catch (err) {
       logger.error(err.toString())
     }

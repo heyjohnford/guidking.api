@@ -18,11 +18,4 @@ app.use(handleErrors)
 
 app.listen(PORT, async () => {
   logger.info(`🏁 ${config.get('appName')} listening on port ${PORT}`)
-
-  // try {
-  //   await client.connection()
-  //   logger.info('successfully connected to mongodb')
-  // } catch (err) {
-  //   logger.error(err.toString())
-  // }
 })
