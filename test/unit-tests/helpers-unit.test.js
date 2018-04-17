@@ -8,11 +8,11 @@ const MockExpressResponse = require('mock-express-response')
 describe('#Helpers Test', function () {
   describe('Generate guids', function () {
     it('should generate the correct amount of guids', async function () {
-      const guids = await helpers.generateUuid(5)
+      const result = await helpers.generateUuid(5)
 
-      assert.equal(true, Array.isArray(guids))
-      assert.equal(true, guids.every(guid => guid.length === 36))
-      assert.strictEqual(guids.length, 5)
+      assert.equal(true, Array.isArray(result))
+      assert.equal(true, result.every(guid => guid.length === 36))
+      assert.strictEqual(result.length, 5)
     })
   })
 
@@ -20,6 +20,7 @@ describe('#Helpers Test', function () {
     it('should handle errors providing status, name, message', function () {
       const req = new MockExpressRequest()
       const res = new MockExpressResponse()
+      const next = () => {}
 
       const err = new Error('invalid request test')
       err.statusCode = 400
@@ -30,7 +31,7 @@ describe('#Helpers Test', function () {
         message: 'invalid request test'
       }
 
-      helpers.handleErrors(err, req, res, () => {})
+      helpers.handleErrors(err, req, res, next)
 
       const result = res._getJSON()
 
@@ -43,8 +44,9 @@ describe('#Helpers Test', function () {
     it('should setup middleware properties providing startAt (time) and requestId', function () {
       const req = new MockExpressRequest()
       const res = new MockExpressResponse()
+      const next = () => {}
 
-      helpers.requestMiddleware(req, res, () => {})
+      helpers.requestMiddleware(req, res, next)
 
       assert.equal(true, !Number.isNaN(req.startAt))
       assert.strictEqual(36, req.requestId.length)
@@ -53,9 +55,9 @@ describe('#Helpers Test', function () {
 
   describe('Response time', function () {
     it('should calculate the response time from request start to request finish', function () {
-      const time = helpers.responseTime(process.hrtime())
+      const result = helpers.responseTime(process.hrtime())
 
-      assert.equal(true, !Number.isNaN(time))
+      assert.equal(true, !Number.isNaN(result))
     })
   })
 
@@ -63,9 +65,9 @@ describe('#Helpers Test', function () {
     it('should retry a function for a declared number of times with a delay between retries', async function () {
       const func = sinon.stub().resolves('Hello, World')
 
-      const retry = await helpers.retry(func, 3, 200)
+      const result = await helpers.retry(func, 3, 200)
 
-      assert.strictEqual('Hello, World', retry)
+      assert.strictEqual('Hello, World', result)
       assert.equal(true, func.calledOnce)
     })
 
