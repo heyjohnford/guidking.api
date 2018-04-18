@@ -1,5 +1,5 @@
 const express = require('express')
-const { config, logger, client } = require('../lib')
+const { config, logger } = require('../lib')
 const { requestMiddleware, handleErrors } = require('../helpers')
 const router = require('./router')
 
@@ -19,10 +19,10 @@ app.use(handleErrors)
 app.listen(PORT, async () => {
   logger.info(`🏁 ${config.get('appName')} listening on port ${PORT}`)
 
-  try {
-    await client.connection()
-    logger.info('successfully connected to mongodb')
-  } catch (err) {
-    logger.error(err.toString())
-  }
+  // try {
+  //   await client.connection()
+  //   logger.info('successfully connected to mongodb')
+  // } catch (err) {
+  //   logger.error(err.toString())
+  // }
 })
