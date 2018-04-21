@@ -27,30 +27,29 @@ class Repository {
     logger.info('total_guids view created')
   }
 
-  async init() {
-    if (this.cachedDb) {
-      return this.cachedDb
-    }
+  async getDb() {
+    if (!this.cachedDb) {
+      const mongoClient = await client.connection()
+      const db = mongoClient.db(this.dbName)
 
-    const mongoClient = await client.connection()
-    const db = mongoClient.db(this.dbName)
+      this.cachedDb = db
 
-    this.cachedDb = db
+      logger.info(`using ${this.dbName} for database context`)
 
-    logger.info(`using ${this.dbName} for database context`)
-
-    try {
-      const collectionName = TRANSACTIONS_COLLECTION
-      await this.setupCollections(collectionName)
-    } catch (err) {
-      logger.error(err.toString())
+      try {
+        const collectionName = TRANSACTIONS_COLLECTION
+        await this.setupCollections(collectionName)
+      } catch (err) {
+        logger.error(err.toString())
+      }
     }
 
     return this.cachedDb
   }
 
   async getCollectionByName(collectionName) {
-    return this.cachedDb.collection(collectionName)
+    const db = await this.getDb()
+    return db.collection(collectionName)
   }
 
   async insertOne(payload) {
@@ -65,4 +64,4 @@ class Repository {
   }
 }
 
-module.exports = new Repository().init()
+module.exports = new Repository()
