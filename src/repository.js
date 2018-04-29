@@ -1,6 +1,7 @@
-const { config, client, logger } = require('../lib')
+const { config, client, logger } = require('../lib/index')
 
-const TRANSACTIONS_COLLECTION = 'transactions'
+const TRANSACTIONS_COLL = 'transactions'
+const TOTAL_GUIDS_COLL = 'total_guids'
 
 function removeRequestIdFromBody(payload) {
   const { requestId, ...payloadOmitRequestId } = payload
@@ -20,7 +21,7 @@ class Repository {
     await this.cachedDb.createIndex(collectionName, 'numberOfGuids', { background: true })
     logger.info(`index on ${collectionName}.numberOfGuids field created`)
 
-    await this.cachedDb.createCollection('total_guids', {
+    await this.cachedDb.createCollection(TOTAL_GUIDS_COLL, {
       viewOn: collectionName,
       pipeline: [{ $group: { _id: null, total: { $sum: '$numberOfGuids' } } }]
     })
@@ -37,7 +38,7 @@ class Repository {
       logger.info(`using ${this.dbName} for database context`)
 
       try {
-        const collectionName = TRANSACTIONS_COLLECTION
+        const collectionName = TRANSACTIONS_COLL
         await this.setupCollections(collectionName)
       } catch (err) {
         logger.error(err.toString())
@@ -53,7 +54,7 @@ class Repository {
   }
 
   async insertOne(payload) {
-    const collection = await this.getCollectionByName(TRANSACTIONS_COLLECTION)
+    const collection = await this.getCollectionByName(TRANSACTIONS_COLL)
     const body = removeRequestIdFromBody(payload)
 
     return collection.insertOne({
@@ -61,6 +62,11 @@ class Repository {
       ...body,
       createdAt: new Date()
     })
+  }
+
+  async getTotalGuidCount() {
+    const collection = await this.getCollectionByName(TOTAL_GUIDS_COLL)
+    return collection.findOne({}, { fields: { _id: 0, total: 1 } })
   }
 }
 

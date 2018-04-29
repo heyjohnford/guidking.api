@@ -58,6 +58,17 @@ async function getGuids(req, res, next) {
   }
 }
 
+async function getTotalGuidsCount(req, res, next) {
+  try {
+    const response = await retry(() => repository.getTotalGuidCount(), 2)
+    res.json(response)
+  } catch (err) {
+    logger.error(err.toString())
+    handleErrors(err, req, res, next)
+  }
+}
+
 module.exports = {
-  getGuids
+  getGuids,
+  getTotalGuidsCount
 }
