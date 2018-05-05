@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  node-server:
+    container_name: app
+    build: .
+    command: 'sh -c "npm install && npm run dev"'
+    image: node:10.0-alpine
+    ports:
+      - 3000:3000
+    volumes:
+      - './:/var/www/app'
+      - '/var/www/app/node_modules/'
+    working_dir: /var/www/app
+    restart: always
+    depends_on:
+      - mongo
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017

@@ -6,9 +6,9 @@
   "database": {
     "url": "mongodb://",
     "host": "localhost",
-    "user": "guidKingApi",
+    "user": "",
     "password": "",
-    "name": "guidking",
+    "name": "",
     "port": 27017,
     "options": {}
   }

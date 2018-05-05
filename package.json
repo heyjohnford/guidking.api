@@ -1,7 +1,8 @@
 {
   "name": "guidking.api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generate useful guids or uuids for your project",
+  "repository": "./",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
