@@ -32,4 +32,5 @@ serverCloseEvents.forEach((event) => {
 
 server.listen(PORT, () => {
   logger.info(`🏁 ${config.get('appName')} listening on port ${PORT}`)
+  logger.info(`Node environment is ${config.get('nodeEnv')}`)
 })
