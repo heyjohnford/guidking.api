@@ -1,4 +1,4 @@
-FROM node:10.0-alpine
+FROM node:10.1-alpine
 
 COPY . /var/www/app
 WORKDIR /var/www/app

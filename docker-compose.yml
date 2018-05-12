@@ -11,9 +11,10 @@ services:
       - './:/var/www/app'
       - '/var/www/app/node_modules/'
     working_dir: /var/www/app
+    environment:
+      - MONGO_HOST=mongo
+    tty: true
     restart: always
-    depends_on:
-      - mongo
     links:
       - mongo
   mongo:
