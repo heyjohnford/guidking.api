@@ -1,4 +1,4 @@
-const { config, client, logger } = require('../lib/index')
+const { config, client, logger } = require('../lib')
 
 const TRANSACTIONS_COLL = 'transactions'
 const TOTAL_GUIDS_COLL = 'total_guids'

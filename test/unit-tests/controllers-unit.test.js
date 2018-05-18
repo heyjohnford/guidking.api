@@ -16,7 +16,6 @@ describe('#Controllers Test', function () {
       const res = new MockExpressResponse()
       const next = () => {}
 
-      // Disregard dependent libraries/helpers
       sandbox.stub(repository, 'insertOne').resolves({})
       sandbox.stub(logger, 'info').returns(() => {})
       sandbox.stub(client, 'connection').resolves({})
