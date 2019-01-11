@@ -7,10 +7,7 @@ services:
     image: node:10.0-alpine
     ports:
       - 3000:3000
-    volumes:
-      - './:/var/www/app'
-      - '/var/www/app/node_modules/'
-    working_dir: /var/www/app
+    working_dir: /app
     environment:
       - MONGO_HOST=mongo
     tty: true

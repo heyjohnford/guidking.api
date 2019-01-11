@@ -1,14 +1,14 @@
 FROM node:10.1-alpine
 
-COPY . /var/www/app
-WORKDIR /var/www/app
+COPY . /app
+WORKDIR /app
 
-RUN useradd -ms /bin/bash guid-king
-USER guid-king
+# RUN useradd -ms /bin/bash guid-king
+# USER guid-king
 
 RUN npm install --production
 
-ENV NODE_ENV production
+# ENV NODE_ENV production
 
 EXPOSE 3000
 
