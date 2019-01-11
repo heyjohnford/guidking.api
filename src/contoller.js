@@ -2,25 +2,11 @@ const {
   generateUuid,
   retry,
   responseTime,
-  errors,
-  handleErrors
+  handleErrors,
+  isAmountValid
 } = require('../helpers')
 const logger = require('../lib/logger')
 const repository = require('./repository')
-
-function isAmountValid(amount) {
-  if (amount < 0) {
-    throw new errors.BadRequest('amount must not be a negative number')
-  }
-
-  if (amount > 1000) {
-    throw new errors.BadRequest('amount must be equal to or less than 1000')
-  }
-
-  if (Number.isNaN(amount)) {
-    throw new errors.BadRequest('amount must be a valid number')
-  }
-}
 
 function guidModel(req, amount) {
   const { requestId, ip, url, startAt, headers } = req
@@ -36,10 +22,9 @@ function guidModel(req, amount) {
 
 async function getGuids(req, res, next) {
   const { query } = req
-  const amount = Math.floor(Number(query.amount))
 
   try {
-    isAmountValid(amount)
+    const amount = isAmountValid(query.amount)
     logger.info(`${amount} guid${amount !== 1 ? 's' : ''} requested`)
 
     const response = await retry(() => generateUuid(amount), 2)

@@ -1,4 +1,5 @@
 const uuid = require('uuid/v4')
+const { AMOUNT_OF_GUIDS_ALLOWED } = require('../constants')
 const errors = require('http-errors')
 
 async function generateUuid(amount = 1) {
@@ -56,11 +57,28 @@ async function retry(fn, maxRetries, retryDelay) {
   return recursor(0)
 }
 
+function isAmountValid(amount) {
+  if (amount < 0) {
+    throw new errors.BadRequest('amount must not be a negative number')
+  }
+
+  if (amount > AMOUNT_OF_GUIDS_ALLOWED) {
+    throw new errors.BadRequest(`amount must be equal to or less than ${AMOUNT_OF_GUIDS_ALLOWED}`)
+  }
+
+  if (Number.isNaN(amount) || amount === '' || amount == null) {
+    throw new errors.BadRequest('amount must be a valid number')
+  }
+
+  return Math.floor(Number(amount))
+}
+
 module.exports = {
   generateUuid,
   requestMiddleware,
   retry,
   responseTime,
   errors,
-  handleErrors
+  handleErrors,
+  isAmountValid
 }
