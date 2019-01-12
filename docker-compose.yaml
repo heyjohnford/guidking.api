@@ -4,7 +4,7 @@ services:
     container_name: app
     build: .
     command: 'sh -c "npm install && npm run dev"'
-    image: node:10.0-alpine
+    image: node:10.1-alpine
     ports:
       - 3000:3000
     working_dir: /app
