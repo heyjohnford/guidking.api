@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: guidking-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: guidking-api
+        track: stable
+    spec:
+      containers:
+        - name: guidking-api
+          image: "guidking-api:latest"
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            limits:
+              cpu: 0.2
+              memory: "200Mi"
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
