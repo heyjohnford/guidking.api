@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: guidking
   labels:
-    app: guidking-api
+    name: guidking-api
 spec:
   selector:
-    app: guidking-api
+    name: guidking-api
   ports:
   - name: http
     protocol: TCP

@@ -7,7 +7,7 @@ spec:
   template:
     metadata:
       labels:
-        app: guidking-api
+        name: guidking-api
         track: stable
     spec:
       containers:

@@ -4,12 +4,15 @@ metadata:
   name: app
   namespace: guidking
   labels:
-    app: guidking-api
+    name: guidking-api
 spec:
   containers:
     - name: guidking-api
       image: guidking-api:latest
       imagePullPolicy: Never
+      env:
+        - name: MONGO_HOST
+          value: mongo
       args:
         - "-secret=secret"
       ports:
