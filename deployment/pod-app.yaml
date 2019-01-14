@@ -4,19 +4,18 @@ metadata:
   name: app
   namespace: guidking
   labels:
-    app: app
+    app: guidking-api
 spec:
   containers:
     - name: guidking-api
       image: guidking-api:latest
       imagePullPolicy: Never
       args:
-        - "-http=0.0.0.0:80"
         - "-secret=secret"
       ports:
         - name: http
-          containerPort: 80
+          containerPort: 3000
       resources:
         limits:
           cpu: 0.2
-          memory: "512Mi"
+          memory: "256Mi"
