@@ -12,7 +12,6 @@ spec:
       imagePullPolicy: Never
       args:
         - "-http=0.0.0.0:80"
-        - "-health=0.0.0.0:81"
         - "-secret=secret"
       ports:
         - name: http
@@ -20,4 +19,4 @@ spec:
       resources:
         limits:
           cpu: 0.2
-          memory: "200Mi"
+          memory: "512Mi"
