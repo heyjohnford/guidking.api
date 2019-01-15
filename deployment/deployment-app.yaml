@@ -2,13 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: guidking-api
+  labels:
+    run: guidking-api
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        name: guidking-api
-        track: stable
+        run: guidking-api
     spec:
       containers:
         - name: guidking-api

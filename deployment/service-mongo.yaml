@@ -3,13 +3,11 @@ kind: Service
 metadata:
   name: mongo
   labels:
-    name: mongo
-    tier: backend
+    run: mongo
 spec:
   ports:
     - name: "21017"
       port: 27017
       targetPort: 27017
   selector:
-    name: mongo
-    tier: backend
+    run: mongo

@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: mongo-volume
   labels:
-    name: mongo-volume
+    run: mongo
 spec:
   storageClassName: manual
   capacity:
@@ -20,7 +20,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongo-persistent-storage
   labels:
-    name: mongo-persistent-storage
+    run: mongo
 spec:
   accessModes:
     - ReadWriteOnce
@@ -33,14 +33,13 @@ kind: Deployment
 metadata:
   name: mongo
   labels:
-    name: mongo
-    tier: backend
+    run: mongo
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: mongo
+        run: mongo
     spec:
       containers:
         - name: mongo

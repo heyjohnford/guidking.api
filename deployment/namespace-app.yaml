@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: guidking
   labels:
-    name: guidking
+    run: guidking

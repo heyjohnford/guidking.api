@@ -4,7 +4,7 @@ metadata:
   name: app
   namespace: guidking
   labels:
-    name: guidking-api
+    run: guidking-api
 spec:
   containers:
     - name: guidking-api
