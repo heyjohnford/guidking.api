@@ -66,7 +66,7 @@ function isAmountValid(amount) {
     throw new errors.BadRequest(`amount must be equal to or less than ${AMOUNT_OF_GUIDS_ALLOWED}`)
   }
 
-  if (Number.isNaN(amount) || amount === '' || amount == null) {
+  if (isNaN(amount) || Number.isNaN(amount) || amount === '' || amount == null) { // eslint-disable-line
     throw new errors.BadRequest('amount must be a valid number')
   }
 
