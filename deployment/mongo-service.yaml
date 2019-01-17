@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: mongo-service
 spec:
+  selector:
+    component: mongo
   ports:
     - name: "21017"
       port: 27017
       targetPort: 27017
-  selector:
-    run: mongo
+  type: ClusterIP

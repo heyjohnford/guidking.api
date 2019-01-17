@@ -4,11 +4,12 @@ metadata:
   name: guidking-service
 spec:
   selector:
-    run: guidking-api
+    component: guidking-api
   ports:
   - name: http
     protocol: TCP
-    port: 80
+    port: 3000
     targetPort: 3000
     nodePort: 32767
   type: NodePort
+  # type: ClusterIP

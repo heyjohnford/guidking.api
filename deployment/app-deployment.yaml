@@ -6,16 +6,19 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      run: guidking-api
+      component: guidking-api
   template:
     metadata:
       labels:
-        run: guidking-api
+        component: guidking-api
     spec:
       containers:
         - name: guidking-api
           image: "guidking-api:latest"
           imagePullPolicy: Never
+          env:
+            - name: MONGO_HOST
+              value: mongo-service
           ports:
             - name: http
               containerPort: 3000
