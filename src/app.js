@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const { config, logger, socketHandler } = require('../lib')
 const { requestMiddleware, handleErrors } = require('../helpers')
 const { serverCloseEvents } = require('../constants')
@@ -10,14 +11,13 @@ const io = require('socket.io')(server)
 
 const PORT = config.get('env:port')
 
+app.disable('x-powered-by')
+
 app.use(requestMiddleware)
 app.use(logger.logToStdout)
 app.use(logger.logToFile)
-
-app.disable('x-powered-by')
-
+app.use(cors())
 app.use(router)
-
 app.use(handleErrors)
 
 io.on('connection', socketHandler)
