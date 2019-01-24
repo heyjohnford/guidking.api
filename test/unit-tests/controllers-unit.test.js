@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: "off" */
-const controllers = require('../../src/contoller')
+const controllers = require('../../src/controller')
 const sinon = require('sinon')
 const assert = require('assert')
 const repository = require('../../src/repository')

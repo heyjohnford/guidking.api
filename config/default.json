@@ -1,7 +1,7 @@
 {
   "appName": "guidking.api",
   "app": {
-    "numberOfGuidsAllowed": 5000
+    "numberOfGuidsAllowed": 3000
   },
   "env": {
     "port": 3000

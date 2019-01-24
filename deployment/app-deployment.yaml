@@ -1,26 +1,31 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: guidking-api
+  name: guidking-api-deployment
 spec:
-  replicas: 3
+  replicas: 1
+  selector:
+    matchLabels:
+      component: guidking-api
   template:
     metadata:
       labels:
-        app: guidking-api
-        track: stable
+        component: guidking-api
     spec:
       containers:
         - name: guidking-api
           image: "guidking-api:latest"
           imagePullPolicy: Never
+          env:
+            - name: MONGO_HOST
+              value: mongo-service
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
           resources:
             limits:
               cpu: 0.2
-              memory: "512Mi"
+              memory: "256Mi"
           livenessProbe:
             httpGet:
               path: /healthcheck
