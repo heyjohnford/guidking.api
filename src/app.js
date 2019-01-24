@@ -20,7 +20,8 @@ app.use(cors())
 app.use(router)
 app.use(handleErrors)
 
-io.on('connection', socketHandler)
+const namespaceIo = io.of('total')
+namespaceIo.on('connection', socketHandler)
 
 serverCloseEvents.forEach((event) => {
   process.on(event, (err) => {
