@@ -11,5 +11,9 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: guidking-service
+              serviceName: guidking-api-service
               servicePort: 3000
+          - path: /
+            backend:
+              serviceName: guidking-com-service
+              servicePort: 8000
