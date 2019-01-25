@@ -1,15 +1,15 @@
-FROM node:10.1-alpine
+FROM node:11.5-alpine
+
+# RUN addgroup -S guid-king && adduser -S guid-king -G guid-king
+# USER guid-king
 
 COPY . /app
 WORKDIR /app
 
-# RUN useradd -ms /bin/bash guid-king
-# USER guid-king
+RUN yarn install --production
 
-RUN npm install --production
-
-# ENV NODE_ENV production
+ENV NODE_ENV production
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
