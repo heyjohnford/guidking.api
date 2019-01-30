@@ -16,18 +16,13 @@ spec:
         - name: guidking-com
           image: "guidking-com:latest"
           imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "80"
           ports:
             - name: http
-              containerPort: 8000
+              containerPort: 80
           resources:
-            limits:
+            requests:
               cpu: 0.2
               memory: "256Mi"
-          livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: 3000
-              scheme: HTTP
-            initialDelaySeconds: 30
-            periodSeconds: 15
-            timeoutSeconds: 5
