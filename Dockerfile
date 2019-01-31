@@ -6,7 +6,7 @@ FROM node:11.5-alpine
 COPY . /app
 WORKDIR /app
 
-RUN yarn install --production
+RUN npm install --production
 
 ENV NODE_ENV production
 
