@@ -1,5 +1,12 @@
 node_modules/
 log/
+deployment/
+docker-compose.yaml
+test/
+.eslintrc
+.git
+.gitignore
 .vscode
 .nyc_output
+.editorconfig
 .dockerignore

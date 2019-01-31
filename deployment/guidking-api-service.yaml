@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: guidking-service
+  name: guidking-api-service
 spec:
   selector:
     component: guidking-api

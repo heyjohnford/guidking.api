@@ -1,14 +1,15 @@
 version: '3.3'
 services:
   node-server:
-    container_name: app
+    container_name: guidking.api
     build: .
-    command: 'sh -c "npm install && npm run dev"'
-    image: node:10.1-alpine
+    command: 'sh -c "npm install && npm start"'
+    image: node:11.5-alpine
     ports:
       - 3000:3000
     working_dir: /app
     environment:
+      - NODE_ENV=development
       - MONGO_HOST=mongo
     tty: true
     restart: always
@@ -16,7 +17,7 @@ services:
       - mongo
   mongo:
     container_name: mongo
-    image: mongo
+    image: mongo:4.1.7
     volumes:
       - /data/db:/data/db
     ports:

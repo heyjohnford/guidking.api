@@ -9,7 +9,11 @@ spec:
   rules:
     - http:
         paths:
+          - path: /api
+            backend:
+              serviceName: guidking-api-service
+              servicePort: 3000
           - path: /
             backend:
-              serviceName: guidking-service
-              servicePort: 3000
+              serviceName: guidking-com-service
+              servicePort: 80

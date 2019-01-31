@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: guidking-com-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: guidking-com
+  template:
+    metadata:
+      labels:
+        component: guidking-com
+    spec:
+      containers:
+        - name: guidking-com
+          image: "guidking-com:latest"
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "80"
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 0.2
+              memory: "256Mi"
