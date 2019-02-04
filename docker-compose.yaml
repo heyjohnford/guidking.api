@@ -4,7 +4,7 @@ services:
     container_name: guidking.api
     build: .
     command: 'sh -c "npm install && npm start"'
-    image: node:11.8-alpine
+    image: dev-guidking.api
     ports:
       - 3000:3000
     working_dir: /app

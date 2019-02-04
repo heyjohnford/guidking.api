@@ -7,13 +7,24 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - http:
-        paths:
-          - path: /api
-            backend:
-              serviceName: guidking-api-service
-              servicePort: 3000
-          - path: /
-            backend:
-              serviceName: guidking-com-service
-              servicePort: 80
+  # - host: guidking.api
+  #   http:
+  #     paths:
+  #     - path: /api
+  #       backend:
+  #         serviceName: guidking-api-service
+  #         servicePort: 3000
+  # - host: guidking.com
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: guidking-com-service
+          servicePort: 80
+  # - host: api.guidking.com
+  #   http:
+  #     paths:
+  #     - path: /api
+  #       backend:
+  #         serviceName: guidking-api-service
+  #         servicePort: 3000
