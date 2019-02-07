@@ -13,6 +13,7 @@ app.disable('x-powered-by')
 app.use(requestMiddleware)
 app.use(logger.logToStdout)
 app.use(logger.logToFile)
+// TODO: add jwt authentication
 app.use(cors())
 app.use(router)
 app.use(handleErrors)
