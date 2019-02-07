@@ -73,6 +73,10 @@ function isAmountValid(amount) {
   return Math.floor(Number(amount))
 }
 
+function changeObjectIntoQueryString(obj) {
+  return JSON.stringify(obj).replace(/{|}|"/g, '').replace(/:/g, '=')
+}
+
 module.exports = {
   generateUuid,
   requestMiddleware,
@@ -80,5 +84,6 @@ module.exports = {
   responseTime,
   errors,
   handleErrors,
-  isAmountValid
+  isAmountValid,
+  changeObjectIntoQueryString
 }
