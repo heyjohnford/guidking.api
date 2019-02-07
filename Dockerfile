@@ -1,4 +1,4 @@
-FROM node:11.5-alpine
+FROM node:11.8-alpine
 
 # RUN addgroup -S guid-king && adduser -S guid-king -G guid-king
 # USER guid-king
@@ -12,4 +12,4 @@ ENV NODE_ENV production
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]

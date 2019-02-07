@@ -1,4 +1,4 @@
-FROM node:11.5-alpine
+FROM node:11.8-alpine
 
 RUN addgroup -S guid-king && adduser -S guid-king
 USER guid-king

@@ -10,3 +10,4 @@ test/
 .nyc_output
 .editorconfig
 .dockerignore
+Dockerfile.*

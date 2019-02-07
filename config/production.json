@@ -1,4 +1,13 @@
 {
   "database": {
+    "url": "mongodb://",
+    "host": "",
+    "user": "guidking_user",
+    "password": "",
+    "name": "guidking",
+    "port": 27017,
+    "options": {
+      "authSource": "admin"
+    }
   }
 }

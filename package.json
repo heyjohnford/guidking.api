@@ -7,6 +7,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
+    "build:dev": "docker build -f Dockerfile.dev -t dev-guidking-api . && docker-compose up",
+    "build:prod": "docker build -t guidking-api .",
     "test": "nyc --reporter=text mocha --recursive test/",
     "lint": "eslint src lib helpers test",
     "security": "npm audit"
