@@ -1,4 +1,4 @@
-#guidking.api
+# guidking.api
 
 The *guidking.api* will expose an endpoint to generate GUID(s). It also captures a small amount of metric data that is stored in a [MongoDB](https://www.mongodb.com/) instance. A websocket is used to update a system lifetime count of GUIDs generated.
 
